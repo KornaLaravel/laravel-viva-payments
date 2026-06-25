@@ -35,6 +35,7 @@ class ISV
     public function fee(int $amount, float $percentage = 0.0, int $minimum = 0): int
     {
         // Convert the percentage to a decimal (e.g., 0.05% → 0.0005)
+        /** @phpstan-ignore missingType.checkedException */
         $feeDecimal = bcdiv((string) $percentage, '100', scale: 10);
 
         // Calculate the fee in cents with sufficient precision (e.g., 0.0005 × 1000 = 0.5)

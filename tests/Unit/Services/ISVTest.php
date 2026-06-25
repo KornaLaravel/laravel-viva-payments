@@ -30,7 +30,7 @@ class ISVTest extends TestCase
         // 0.05% of €10.00 (1000¢) = 0.5¢ → rounds up to 1¢
         $fee = $this->isv->fee(amount: 1000, percentage: 0.05);
 
-        $this->assertSame(1, $fee);
+        self::assertSame(1, $fee);
     }
 
     #[Test]
@@ -39,7 +39,7 @@ class ISVTest extends TestCase
         // 0.05% of €10.00 = 1¢, but minimum is €0.07 (7¢)
         $fee = $this->isv->fee(amount: 1000, percentage: 0.05, minimum: 7);
 
-        $this->assertSame(7, $fee);
+        self::assertSame(7, $fee);
     }
 
     #[Test]
@@ -47,7 +47,7 @@ class ISVTest extends TestCase
     {
         $fee = $this->isv->fee(amount: 1000, percentage: 0.0);
 
-        $this->assertSame(0, $fee);
+        self::assertSame(0, $fee);
     }
 
     #[Test]
@@ -55,7 +55,7 @@ class ISVTest extends TestCase
     {
         $fee = $this->isv->fee(amount: 0, percentage: 0.05);
 
-        $this->assertSame(0, $fee);
+        self::assertSame(0, $fee);
     }
 
     #[Test]
@@ -64,7 +64,7 @@ class ISVTest extends TestCase
         // 0.04% of €10.00 (1000¢) = 0.4¢ → rounds down to 0¢
         $fee = $this->isv->fee(amount: 1000, percentage: 0.04);
 
-        $this->assertSame(0, $fee);
+        self::assertSame(0, $fee);
     }
 
     #[Test]
@@ -73,7 +73,7 @@ class ISVTest extends TestCase
         // 1.0% of €100.00 (10000¢) = 100¢ = €1.00
         $fee = $this->isv->fee(amount: 10000, percentage: 1.0);
 
-        $this->assertSame(100, $fee);
+        self::assertSame(100, $fee);
     }
 
     #[Test]
@@ -82,7 +82,7 @@ class ISVTest extends TestCase
         // 0% of €5.00 = 0¢, but minimum is €0.50 (50¢)
         $fee = $this->isv->fee(amount: 500, percentage: 0.0, minimum: 50);
 
-        $this->assertSame(50, $fee);
+        self::assertSame(50, $fee);
     }
 
     #[Test]
@@ -91,7 +91,7 @@ class ISVTest extends TestCase
         // 0.05% of €1000.00 (100000¢) = 50¢ = €0.50
         $fee = $this->isv->fee(amount: 100000, percentage: 0.05);
 
-        $this->assertSame(50, $fee);
+        self::assertSame(50, $fee);
     }
 
     #[Test]
@@ -101,7 +101,7 @@ class ISVTest extends TestCase
         // Test that percentages with >2 decimal places aren't silently truncated
         $fee = $this->isv->fee(amount: 1000, percentage: 0.055);
 
-        $this->assertSame(1, $fee);
+        self::assertSame(1, $fee);
     }
 
     #[Test]
@@ -110,7 +110,7 @@ class ISVTest extends TestCase
         // 100% of €1.00 (100¢) = 100¢
         $fee = $this->isv->fee(amount: 100, percentage: 100.0);
 
-        $this->assertSame(100, $fee);
+        self::assertSame(100, $fee);
     }
 
     #[Test]
@@ -119,7 +119,7 @@ class ISVTest extends TestCase
         // 0.025% of €20.00 (2000¢) = 0.5¢ → rounds up to 1¢
         $fee = $this->isv->fee(amount: 2000, percentage: 0.025);
 
-        $this->assertSame(1, $fee);
+        self::assertSame(1, $fee);
     }
 
     #[Test]
@@ -127,6 +127,6 @@ class ISVTest extends TestCase
     {
         $fee = $this->isv->fee(amount: 0, percentage: 0.0);
 
-        $this->assertSame(0, $fee);
+        self::assertSame(0, $fee);
     }
 }

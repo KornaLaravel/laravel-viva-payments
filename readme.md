@@ -602,6 +602,45 @@ Viva::isv()->source()->create(
 );
 ```
 
+### Fee
+
+The `Viva::isv()->fee()` helper calculates the ISV fee amount (in cents) based on a percentage of the transaction amount, with an optional minimum fee. It uses bcmath for precision to avoid floating-point rounding errors.
+
+```php
+use Sebdesign\VivaPayments\Facades\Viva;
+
+// 0.05% of €10.00 = €0.005 → rounds up to €0.01
+$fee = Viva::isv()->fee(
+    amount: 1000,     // €10.00
+    percentage: 0.05, // 0.05% fee
+    minimum: 7,       // €0.07 minimum fee (optional)
+);
+
+// Returns: 7 (minimum applies)
+```
+
+| Parameter     | Type    | Description                         | Example           |
+|---------------|---------|-------------------------------------|-------------------|
+| `$amount`     | `int`   | Transaction amount in cents         | `1000` for €10.00 |
+| `$percentage` | `float` | Fee percentage                      | `0.05` for 0.05%  |
+| `$minimum`    | `int`   | Minimum fee in cents (default: `0`) | `7` for €0.07     |
+
+The calculated fee is always rounded half up to the nearest cent. The result can be passed directly to the `isvAmount` field in `CreatePaymentOrder` or `CreateRecurringTransaction`.
+
+```php
+$orderCode = Viva::isv()->orders()->create(
+    order: new CreatePaymentOrder(
+        amount: 1000,
+        isvAmount: Viva::isv()->fee(
+            amount: 1000,
+            percentage: 0.05,
+            minimum: 7,
+        ),
+        // ...
+    ),
+);
+```
+
 ## Exceptions
 
 When the VivaPayments API returns an error, a `Sebdesign\VivaPayments\VivaException` is thrown.

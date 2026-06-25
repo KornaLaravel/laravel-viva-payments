@@ -38,6 +38,9 @@
         "phpstan/phpstan-strict-rules": "^1.4 | ^2.0",
         "phpunit/phpunit": "^10.5 | ^11.5.3 | ^12.5.12"
     },
+    "suggest": {
+        "ext-bcmath": "Required for precise ISV fee calculations in the Viva::isv()->fee() helper."
+    },
     "autoload": {
         "psr-4": {
             "Sebdesign\\VivaPayments\\": "src"
